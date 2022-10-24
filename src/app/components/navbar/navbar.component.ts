@@ -84,7 +84,7 @@ export class NavbarComponent implements OnInit {
     this.jwtDAta = {};
     this.rol = 0;
 
-    this.toast('info', 'Sesión cerrada', "LogOut");
+    this.toast('warning', 'Sesión cerrada', "LogOut");
   }
 
 
