@@ -1,0 +1,27 @@
+<div mat-dialog-container>
+
+    <h1 mat-dialog-title>LogIn</h1>
+    <div mat-dialog-content>
+
+        <p>Credenciales</p>
+        <mat-form-field appearance="fill">
+            <mat-label>eMail</mat-label>
+            <input matInput [(ngModel)]="data.usr">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 202px;">
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="data.psw" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide" matTooltip="Muestra Password">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+
+</div>
