@@ -2,7 +2,7 @@
     <div>
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Filtrar</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. ium" #input>
+            <input type="search" autocomplete="off" matInput (keyup)="applyFilter($event)" placeholder="Ej. ium" #input>
         </mat-form-field>
 
     </div>
@@ -33,40 +33,37 @@
                 <mat-cell *matCellDef="let element"> {{element.salario|number}} </mat-cell>
             </ng-container>
 
-            <!-- created_at Column -->
-            <ng-container matColumnDef="created_at">
-                <mat-header-cell *matHeaderCellDef> Creado el </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
+            <!-- edit Column -->
+            <ng-container matColumnDef="crud">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span *ngIf="(isUserLoggedIn$ | async)">
+                        <button mat-raised-button class="me-3">Edit</button>
+                        <button (click)="delete(element.id)" mat-raised-button color="accent">Delete</button>
+                    </span>
+                </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                <td class="mat-cell" colspan="4">No hay datos tras el filtro "{{input.value}}"</td>
             </tr>
 
         </table>
     </div>
 
-    <div class="d-flex justify-content-around mt-3 ">
-        <button mat-raised-button>Basic</button>
-
-        <button mat-raised-button color="primary" (click)="exporter.exportTable('xlsx', {fileName:'table'})">Export to
+    <div class="d-flex justify-content-start mt-3 ">
+        <button class="me-3" mat-raised-button color="primary"
+            (click)="exporter.exportTable('xlsx', {fileName:'table'})">Export to
             xlsx</button>
-        <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('csv')">Export To
-            csv</button>
         <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('json')">Export To
             json</button>
-        <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('txt')">Export To
-            txt</button>
     </div>
 
-
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSizeOptions]="[ 10, 15,20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 
 

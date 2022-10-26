@@ -24,6 +24,7 @@
     "mat-table-exporter": "^10.2.4",
     "ngx-toastr": "^15.2.1",
     "rxjs": "~7.5.0",
+    "sweetalert2": "^11.6.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

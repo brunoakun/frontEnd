@@ -1,17 +1,17 @@
 <div mat-dialog-container>
 
-    <h1 mat-dialog-title>LogIn</h1>
+    <h1 mat-dialog-title>{{data.titulo}}</h1>
     <div mat-dialog-content>
 
         <p>Credenciales</p>
         <mat-form-field appearance="fill">
             <mat-label>eMail</mat-label>
-            <input matInput [(ngModel)]="data.usr">
+            <input matInput [(ngModel)]="data.usr" autocomplete="off">
         </mat-form-field>
 
         <mat-form-field appearance="fill" style="width: 202px;">
             <mat-label>Password</mat-label>
-            <input matInput [(ngModel)]="data.psw" [type]="hide ? 'password' : 'text'">
+            <input matInput [(ngModel)]="data.psw" [type]="hide ? 'password' : 'text'" autocomplete="off">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide" matTooltip="Muestra Password">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

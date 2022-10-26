@@ -19,5 +19,9 @@ export class PersonasService {
   getPersonas(): Observable<IApiData> {
     return this.http.get<IApiData>(`${this.apiURL}/personas/list`);
   }
+
+  delPersonas(id: number): Observable<IApiData> {
+    return this.http.get<IApiData>(`${this.apiURL}/personas/delete/${id}`);
+  }
 }
 

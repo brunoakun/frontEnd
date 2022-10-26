@@ -10,27 +10,39 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/lista" [routerLinkActive]="['active']">Listado</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/persona/2" [routerLinkActive]="['active']">Edit 2</a>
+                <li *ngIf="srvAuth.rolLevel > 4" class="nav-item">
+                    <a class="nav-link" routerLink="/contabilidad" [routerLinkActive]="['active']">Contabiliadad</a>
                 </li>
-                <li *ngIf="rol > 4" class="nav-item">
-                    <a href="" class="nav-link">Contabiliadad</a>
+                <li *ngIf="srvAuth.rolLevel > 4" class="nav-item">
+                    <a class="nav-link" routerLink="/ventas" [routerLinkActive]="['active']">Ventas</a>
                 </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">Ventas</a>
-              </li>
             </ul>
+
+
             <div class="d-flex">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li *ngIf="!(isUserLoggedIn$ | async)" class="nav-item">
-                        <a href="#" (click)="logInForm(); (false)" class="nav-link">Iniciar sesión</a>
-                    </li>
-                    <li *ngIf="isUserLoggedIn$ | async" class="nav-item">
-                        <a href="#" (click)="logOut(); (false)" class="nav-link"> <b>{{jwtDAta.data.email}}</b> Cerrar
-                            sesión</a>
-                    </li>
-                </ul>
+                <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <span *ngIf="!(isUserLoggedIn$ | async)">
+                        <button mat-button (click)="logInForm('login'); (false)">Iniciar sesión</button>
+                        <button mat-button (click)="logInForm('newUser'); (false)">Crear usuario</button>
+                    </span>
+                    <span *ngIf="(isUserLoggedIn$ | async)">
+                        <button mat-button [matMenuTriggerFor]="menu">
+                            <mat-icon aria-hidden="false" aria-label="Usuario" fontIcon="account_circle"></mat-icon>
+                            {{jwtDAta.data.email}}
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Nivel: {{jwtDAta.data.role}}</button>
+                            <hr>
+                            <button mat-menu-item (click)="logOut(); (false) " style='color:orange;'>Cerrar
+                                sesión</button>
+                        </mat-menu>
+                    </span>
+
+                </div>
+
             </div>
+
+
 
         </div>
     </div>

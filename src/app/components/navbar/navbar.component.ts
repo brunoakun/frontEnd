@@ -5,6 +5,7 @@ import { JwtDecodeService } from 'src/app/servicios/jwt-decode.service';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service'
 
 export interface ILogInData {
+  titulo?: string;
   usr: string;
   psw: string;
 }
@@ -19,8 +20,7 @@ export class NavbarComponent implements OnInit {
   psw: string = '';
   token: string = '';
 
-  jwtDAta: any = {};
-  rol: number = 0;
+  jwtDAta: any = {}; 
 
   constructor(
     public srvAuth: AuthService,
@@ -36,16 +36,19 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logInForm() {
+  logInForm(tipo: string) {
     // Pedir datos
     const dialogLogIn = this.dialog.open(DialogLogIn, {
       width: '250px',
-      data: { usr: this.usr, psw: this.psw },
+      data: { titulo: tipo, usr: this.usr, psw: this.psw },
     });
 
     dialogLogIn.afterClosed().subscribe(result => {
-      //console.log('The dialog was closed');
-      if (result) this.validaLogIn(result);
+      //console.log('The dialog was closed');      
+      if (result) {
+        if (tipo == 'login') this.validaLogIn(result);
+        if (tipo == 'newUser') this.creaUsr(result);
+      }
     });
 
   }
@@ -72,17 +75,40 @@ export class NavbarComponent implements OnInit {
       this.toast('success', this.token, 'LogedIn!');
       this.jwtDAta = this.jwtService.DecodeToken(this.token);
       console.log(this.jwtDAta.data);
-      this.rol = this.jwtDAta.data.role;
       this.srvAuth.loggedIn.next(true);
+      this.srvAuth.rolLevel=this.jwtDAta.data.role
     });
   }
+
+
+  creaUsr(result: any) {
+    this.srvAuth.newUsr(result.usr, result.psw).subscribe((respuesta: any) => {
+      console.log('respuesta=' + JSON.stringify(respuesta));
+      if (respuesta.error) {
+
+        if (typeof respuesta.message === 'object') {
+          const claves: string[] = Object.keys(respuesta.message);
+          const valores: string[] = Object.values(respuesta.message);
+          for (let i = 0; i < claves.length; i++) {
+            this.toast('error', valores[i], `ERROR ${claves[i]}`);
+          }
+        } else {
+          this.toast('error', respuesta.message, `ERROR`);
+        }
+
+        return;
+      }
+      this.toast('success', respuesta.message, 'Usuario Creado!');
+    });
+  }
+
 
 
   logOut() {
     this.srvAuth.logOut();
     this.token = '';
     this.jwtDAta = {};
-    this.rol = 0;
+    this.srvAuth.rolLevel = 0;
 
     this.toast('warning', 'Sesión cerrada', "LogOut");
   }

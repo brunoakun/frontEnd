@@ -9,20 +9,24 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableComponent } from './components/table/table.component';
 import { MatTableExporterModule } from 'mat-table-exporter';
-import { TarjetaComponent } from './components/tarjeta/tarjeta.component';
 import { NavbarComponent, DialogLogIn } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import { ContabilidadComponent } from './components/contabilidad/contabilidad.component';
+import { VentasComponent } from './components/ventas/ventas.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    TarjetaComponent,
     NavbarComponent,
-    DialogLogIn
+    DialogLogIn,
+    ContabilidadComponent,
+    VentasComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

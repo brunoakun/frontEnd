@@ -12,6 +12,10 @@ ng g i models/tabla
 
 ## jwt-decode
 https://medium.com/the-tech-masters/parse-jwt-token-in-angular-d40a26a06760
+
+## Swal
+npm install sweetalert2
+
  
 
 
