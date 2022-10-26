@@ -31,7 +31,8 @@
                             {{jwtDAta.data.email}}
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Nivel: {{jwtDAta.data.role}}</button>
+                            <span mat-menu-item>Nivel: {{jwtDAta.data.role}}</span>
+                            <span mat-menu-item>token: {{token}}</span>                            
                             <hr>
                             <button mat-menu-item (click)="logOut(); (false) " style='color:orange;'>Cerrar
                                 sesión</button>

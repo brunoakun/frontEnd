@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   psw: string = '';
   token: string = '';
 
-  jwtDAta: any = {}; 
+  jwtDAta: any = {};
 
   constructor(
     public srvAuth: AuthService,
@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
       this.jwtDAta = this.jwtService.DecodeToken(this.token);
       console.log(this.jwtDAta.data);
       this.srvAuth.loggedIn.next(true);
-      this.srvAuth.rolLevel=this.jwtDAta.data.role
+      this.srvAuth.rolLevel = this.jwtDAta.data.role
     });
   }
 

@@ -5,9 +5,9 @@ import { ContabilidadComponent } from './components/contabilidad/contabilidad.co
 import { VentasComponent } from './components/ventas/ventas.component';
 
 const routes: Routes = [
-  { path: 'lista', component: TableComponent },
+  { path: 'lista', component: TableComponent, pathMatch: "full" },
   { path: 'contabilidad', component: ContabilidadComponent },  
-  { path: 'ventas', component: VentasComponent },  
+  { path: 'ventas', component: VentasComponent },   
 
   { path: '', redirectTo: 'lista', pathMatch: 'full' },
   { path: '**', redirectTo: 'lista', pathMatch: 'full' }
