@@ -3,6 +3,10 @@ https://amoelcodigo.com/angular-material-table-excel/?unapproved=193&moderation-
 
 Exportar Tablas de Angular Material a Excel, Json y Archivos de texto con mat-table-exporter
 
+## Build 
+(angular.json) -> "outputPath": "dist"
+ng build --base-href="./"
+
 ## Install ng-material y exporter
 ng add @angular/material
 npm install mat-table-exporter
