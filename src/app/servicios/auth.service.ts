@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   // Creamos el obserbable loggegIn$, como un boolean=false
-  loggedIn = new BehaviorSubject<boolean>(false);
+  public loggedIn = new BehaviorSubject<boolean>(false);
   rolLevel: number = 0;
 
   //Propiedades   
@@ -43,6 +43,7 @@ export class AuthService {
 
   logOut(): void {
     this.loggedIn.next(false);
+    sessionStorage.removeItem('sprint9.token');
     this.redirectToHome();
   }
 

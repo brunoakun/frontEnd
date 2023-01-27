@@ -34,6 +34,15 @@ export class NavbarComponent implements OnInit {
   isUserLoggedIn$ = this.srvAuth.loggedIn$;
 
   ngOnInit(): void {
+    // Ya estás validado?
+    this.token = sessionStorage.getItem('sprint9.token')!;
+    if (this.token) {
+      this.jwtDAta = this.jwtService.DecodeToken(this.token);
+      console.log(this.jwtDAta.data);
+
+      this.srvAuth.loggedIn.next(true);
+      this.srvAuth.rolLevel = this.jwtDAta.data.role
+    }
   }
 
   logInForm(tipo: string) {
@@ -59,12 +68,14 @@ export class NavbarComponent implements OnInit {
       if (respuesta.error) {
 
         if (typeof respuesta.message === 'object') {
+          // más de 1 mensaje
           const claves: string[] = Object.keys(respuesta.message);
           const valores: string[] = Object.values(respuesta.message);
           for (let i = 0; i < claves.length; i++) {
             this.toast('error', valores[i], `ERROR ${claves[i]}`);
           }
         } else {
+          // Solo 1 mensaje
           this.toast('error', respuesta.message, `ERROR`);
         }
 
@@ -72,9 +83,11 @@ export class NavbarComponent implements OnInit {
       }
 
       this.token = respuesta.data.token;
+      sessionStorage.setItem('sprint9.token', this.token);
       this.toast('success', this.token, 'LogedIn!');
       this.jwtDAta = this.jwtService.DecodeToken(this.token);
       console.log(this.jwtDAta.data);
+
       this.srvAuth.loggedIn.next(true);
       this.srvAuth.rolLevel = this.jwtDAta.data.role
     });
